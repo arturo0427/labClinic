@@ -255,7 +255,7 @@
             </div>
             <div class="col-lg-6">
                 <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
-                    <a href="#intro" class="scrollto">Inicio</a>
+                    <a href="#intro" class="scrollto">Inicio 1</a>
                     <a href="#about" class="scrollto">Sobre Nosotros</a>
                 </nav>
             </div>
