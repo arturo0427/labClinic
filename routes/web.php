@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/{id}/show', 'UserController@show')->name('users.show')
         ->middleware('permission:users.show');
 
-//    Rutas de citas médicas
+//    Rutas de citas médicas -> Reservaciones
     Route::get('reservations', 'ReservationController@index')->name('reservations.index')
         ->middleware('permission:reservations.index');
     Route::post('reservations/store', 'ReservationController@store')->name('reservations.store')
@@ -113,9 +113,24 @@ Route::middleware(['auth'])->group(function () {
     Route::post('inventario/{id}/update', 'inventarioController@update')->name('inventario.update')
         ->middleware('permission:inventario.edit');
 
+//   Rutas historias clinicas
+    Route::get('historiaClinica', 'HistoriaClinicaController@index')->name('historiaClinica.index')
+        ->middleware('permission:historiaClinica.index');
+    Route::get('historiaClinica/{id}/show', 'HistoriaClinicaController@show')->name('historiaClinica.show')
+        ->middleware('permission:historiaClinica.show');
 
 
 
+
+    //pdf
+    Route::name('print')->get('/imprimir/{id}', 'GeneradorPdfController@imprimir');
+
+
+
+
+
+
+    //email
     Route::get('email', function () {
         return view('backoffice.pages.email.index');
     })->name('historia.index');

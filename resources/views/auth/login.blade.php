@@ -21,7 +21,6 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-{{--        <a href="#"><b>Lab. Clínico</b>"El Ángel"</a>--}}
         <a href="{{route('index')}}"><img src="{{asset('assets/frontend/img/logo_largo.png')}}"  class="img-fluid"></a>
     </div>
     <!-- /.login-logo -->

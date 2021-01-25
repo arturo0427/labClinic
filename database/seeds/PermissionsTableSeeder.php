@@ -15,6 +15,11 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
 
+        //dashboard o inicio
+        Permission::create(['name' => 'inicio.index', 'description' => 'Inicio']);
+        Permission::create(['name' => 'inicio.admin', 'description' => 'Inicio para el administrador']);
+        Permission::create(['name' => 'inicio.users', 'description' => 'Inicio para usuarios']);
+
         //roles
         Permission::create(['name' => 'roles.index', 'description' => 'Vista de roles']);
         Permission::create(['name' => 'roles.edit', 'description' => 'Editar rol']);
@@ -31,6 +36,7 @@ class PermissionsTableSeeder extends Seeder
 
         //reservations -> reservacion de citas
         Permission::create(['name' => 'reservations.index', 'description' => 'Vista de reservaciones']);
+        Permission::create(['name' => 'reservations.reservationTable', 'description' => 'Historial de reservaciones']);
         Permission::create(['name' => 'reservations.create', 'description' => 'Crear reservación']);
         Permission::create(['name' => 'reservations.show', 'description' => 'Ver reservación']);
         Permission::create(['name' => 'reservations.destroy', 'description' => 'Eliminar reservación']);
@@ -62,13 +68,17 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'inventario.edit', 'description' => 'Editar insumo médico']);
         Permission::create(['name' => 'inventario.destroy', 'description' => 'Eliminar insumo médico']);
 
-
+        //Historias Clínicas
+        Permission::create(['name' => 'historiaClinica.index', 'description' => 'Vista de historias clínicas']);
+        Permission::create(['name' => 'historiaClinica.show', 'description' => 'Ver historia clínica respectiva']);
 
 
         //Admin
         $admin = Role::create(['name' => 'Administrador', 'description' => 'Es el administrador de todo el sistema']);
 
         $admin->givePermissionTo([
+            'inicio.index',
+            'inicio.admin',
             'roles.index',
             'roles.edit',
             'roles.show',
@@ -80,6 +90,7 @@ class PermissionsTableSeeder extends Seeder
             'users.create',
             'users.destroy',
             'reservations.index',
+            'reservations.reservationTable',
             'reservations.create',
             'reservations.show',
             'reservations.destroy',
@@ -102,13 +113,13 @@ class PermissionsTableSeeder extends Seeder
             'inventario.edit',
             'inventario.destroy',
         ]);
-        //$admin->givePermissionTo('products.index');
-        //$admin->givePermissionTo(Permission::all());
 
         //Admin
         $laboratorista = Role::create(['name' => 'Laboratorista', 'description' => 'Laboratorista auxiliar']);
 
         $laboratorista->givePermissionTo([
+            'inicio.index',
+            'inicio.admin',
             'roles.index',
             'users.index',
             'users.edit',
@@ -116,6 +127,7 @@ class PermissionsTableSeeder extends Seeder
             'users.create',
             'users.destroy',
             'reservations.index',
+            'reservations.reservationTable',
             'reservations.create',
             'reservations.show',
             'reservations.destroy',
@@ -139,16 +151,21 @@ class PermissionsTableSeeder extends Seeder
         $paciente = Role::create(['name' => 'Paciente', 'description' => 'Solo tiene acceso a los permisos asignados por el administrador']);
 
         $paciente->givePermissionTo([
+            'inicio.index',
+            'inicio.users',
             'reservations.index',
             'reservations.create',
             'reservations.show',
             'reservations.destroy',
+            'historiaClinica.index',
         ]);
 
         //Medico
         $medico = Role::create(['name' => 'Médico', 'description' => 'Solo tiene acceso a los permisos asignados por el administrador']);
 
         $medico->givePermissionTo([
+            'inicio.index',
+            'inicio.users',
             'crearConsultas.index',
             'crearConsultas.create',
             'crearConsultas.show',
@@ -173,7 +190,7 @@ class PermissionsTableSeeder extends Seeder
         User::create([
             'name' => 'Wilson Arturo',
             'apellido' => 'Muñoz Ruano',
-            'sexo' => 'Hombre',
+            'sexo' => 'Masculino',
             'age' => 25,
             'cedula' => '0401872866',
             'fecha_nacimiento' => '1995-12-04',
@@ -185,7 +202,7 @@ class PermissionsTableSeeder extends Seeder
         User::create([
             'name' => 'David Mateo',
             'apellido' => 'López Meza',
-            'sexo' => 'Mujer',
+            'sexo' => 'Femenino',
             'age' => 24,
             'cedula' => '123',
             'fecha_nacimiento' => '1996-11-10',

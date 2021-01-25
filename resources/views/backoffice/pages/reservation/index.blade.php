@@ -8,6 +8,11 @@
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'/>
     <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+          xmlns="">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
@@ -23,62 +28,73 @@
 
     <section class="content">
         <div class="row">
+            @can('reservations.create')
+                <div class="col-md-3">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Cita Médica</h3>
+                        </div>
+                        <form method="POST" action="{{ route('reservations.store') }}">
+                            {{ csrf_field() }}
 
-            <div class="col-md-3">
-                <!-- general form elements -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Cita Médica</h3>
-                    </div>
-                    <form method="POST" action="{{ route('reservations.store') }}">
-                        {{ csrf_field() }}
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Fecha de cita</label>
-                                        <input type="date"
-                                               class="form-control @error('fecha_cita') is-invalid @enderror"
-                                               name="fecha_cita" value="{{ old('fecha_cita') }}"
-                                               placeholder="Ingresar la fecha">
-                                        @error('fecha_cita')
-                                        <span class="invalid-feedback" role="alert">
+                            <div class="form-row">
+                                <div class="col-md-12">
+
+                                    <div class="card-body">
+                                        <div class="form-grup">
+                                            <p><strong>Horarios de atención:</strong></p>
+                                            <p>Lunes a viernes<br>07:30 am. a 06:00 pm</p>
+                                            <p>Sábado<br>08:00 am. a 02:00 pm</p>
+
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <input type="date"
+                                                   class="form-control @error('fecha_cita') is-invalid @enderror"
+                                                   name="fecha_cita" value="{{ old('fecha_cita') }}"
+                                                   placeholder="Ingresar la fecha">
+                                            @error('fecha_cita')
+                                            <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                             </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Hora de cita</label>
-                                        <input type="time" class="form-control @error('hora_cita') is-invalid @enderror"
-                                               name="hora_cita" max="19:00:00"
-                                               min="09:00:00" value="{{ old('hora_cita') }}">
-                                        @error('hora_cita')
-                                        <span class="invalid-feedback" role="alert">
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Hora de cita</label>
+                                            <input type="time"
+                                                   class="form-control @error('hora_cita') is-invalid @enderror"
+                                                   name="hora_cita" max="18:00:00"
+                                                   min="07:30:00" value="{{ old('hora_cita') }}">
+                                            @error('hora_cita')
+                                            <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                             </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Descripción de tipo de
-                                            diagnóstico</label>
-                                        <textarea name="des_diagnostico"
-                                                  class="form-control @error('des_diagnostico') is-invalid @enderror"
-                                                  rows="5" value="{{ old('des_diagnostico') }}"></textarea>
-                                        @error('des_diagnostico')
-                                        <span class="invalid-feedback" role="alert">
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Descripción de tipo de
+                                                diagnóstico</label>
+                                            <textarea name="des_diagnostico"
+                                                      class="form-control @error('des_diagnostico') is-invalid @enderror"
+                                                      rows="5" value="{{ old('des_diagnostico') }}"></textarea>
+                                            @error('des_diagnostico')
+                                            <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                             </span>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary" id="btnAgendarCita">Agendar cita</button>
-                        </div>
-                    </form>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" id="btnAgendarCita">Agendar cita</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <div class="col-md-9">
                 <!-- general form elements -->
@@ -93,19 +109,30 @@
                     </div>
 
                     <div class="card-footer">
-                        <label>Esto es el footer</label>
 
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="card card-primary card-outline">
-            <div class="card-body">
-                {{--CONTENIDO--}}
-
+        @can('reservations.reservationTable')
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Historial de citas</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" id="reservationTable">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endcan
     </section>
 
     {{--    Modal --}}
@@ -165,10 +192,45 @@
     <script src='{{asset('assets/adminLTE/fullcalendar/lib/locales/es.js')}}'></script>
     <script src="{{asset('assets/adminLTE/plugins/fullcalendar-bootstrap/main.min.js')}}"></script>
 
+    {{--    yajra--}}
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
+
+            //tabla
+            var table = $('#reservationTable').DataTable({
+                serverSide: true,
+                processing: true,
+                responsive: true,
+                autoWidth: false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se ha encontrado",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "processing": "Procesando"
+                },
+                ajax: {
+                    url: "{{ route('reservations.index') }}"
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'title', name: 'title'},
+                    {data: 'start', name: 'start'},
+                    {data: 'status', name: 'status'},
+                ],
+            });
+
 
             var calendarEl = document.getElementById('calendar');
 
@@ -226,6 +288,10 @@
             });
             calendar.render();
 
+
+
+
+
             function enviarInformacion(accion, type) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -236,6 +302,7 @@
                     success: function (data) {
                         if (data.type == 'success') {
                             $('#modalReservation').modal('toggle');
+                            $('#reservationTable').DataTable().ajax.reload();
                             calendar.refetchEvents();
                             Swal.fire({
                                 icon: 'success',
@@ -251,7 +318,8 @@
                         }
                     },
                     error: function (data) {
-                        alert('Error' + data)
+                        console.log(data);
+                        // alert('Error' + data)
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -274,7 +342,11 @@
             });
 
 
+
+
         });
     </script>
+
+
 
 @endsection

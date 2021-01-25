@@ -209,8 +209,14 @@
                     data.permissions.map(res => {
                         $(".permissions_edit").find(`[data-permiso='${res.id}']`).prop('checked', true);
                     });
-                    $('#rolModalTitle').html("Editar Rol");
+
                     $('#Role_id').val(data.role.id);
+                    $('#rolModalTitle').html("Editar Rol");
+                    if (data.role.name == 'Administrador') {
+                        $('#name').prop('disabled', true);
+                    } else {
+                        $('#name').prop('disabled', false);
+                    }
                     $('#name').val(data.role.name);
                     $('#description').val(data.role.description);
                     $('#guard_name').val(data.role.guard_name);

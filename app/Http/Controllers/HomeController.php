@@ -26,9 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $user = Auth()->user();
         $consultas = Consulta::where('status', 0)->get();
         $users = User::all();
         $reservation = Reservation::where('status', 0)->get();
+
+
 
         return view('backoffice.home', [
             'consultas' => $consultas,

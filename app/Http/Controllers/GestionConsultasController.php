@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Consulta;
-use App\Grupos_detalle_tipoExamen;
-use App\Grupos_examen;
-use App\Insumo;
+use Illuminate\Support\Facades\Mail;
+use PDF;
 use App\ResultadoConsulta;
 use App\User;
 use Illuminate\Http\Request;
@@ -161,9 +160,6 @@ class GestionConsultasController extends Controller
         $consulta->save();
 
 
-
-
-
         $tiposExamenesConsulta = $consulta->grupos_detalles_tiposExamenes;
 
         foreach ($tiposExamenesConsulta as $examen) {
@@ -174,13 +170,25 @@ class GestionConsultasController extends Controller
             }
         }
 
+        $data["email"] = $consulta->user->email;
+        $data["title"] = "Laboratorio Clínico El Ángel";
+        $data["body"] = "Resultados clínicos";
+        $nombre = $consulta->id . '_' . $consulta->user->id . '.pdf';
 
+        $medico = User::find($consulta->medico_id);
 
+        $pdf = \PDF::loadView('backoffice.pdf.resultadosPDF', compact('consulta', 'medico'));
+        Mail::send('backoffice.pages.email.index', $data, function ($message) use ($data, $pdf) {
+            $message->to($data["email"], $data["email"])
+                ->subject($data["title"])
+                ->attachData($pdf->output(), "resultados.pdf");
+        });
 
 
         toast('Consulta atendida', 'success')->autoClose(3000);
         return redirect()->route('consultas.index');
     }
+
 
     /**
      * Display the specified resource.

@@ -71,6 +71,12 @@
                             <input type="text" class="form-control" id="txtFechaNacimiento" disabled>
                         </div>
                     </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Sexo:</label>
+                            <input type="text" class="form-control" id="txtSexo" disabled>
+                        </div>
+                    </div>
                 </div>
 
                 <hr>
@@ -142,6 +148,7 @@
                             $('#txtEdad').val('');
                             $('#txtEmail').val('');
                             $('#txtFechaNacimiento').val('');
+                            $('#txtSexo').val('');
                         } else {
                             $('#User_id').val(data[0].id);
                             $('#txtNombre').val(data[0].name);
@@ -149,6 +156,7 @@
                             $('#txtEdad').val(data[0].age);
                             $('#txtEmail').val(data[0].email);
                             $('#txtFechaNacimiento').val(data[0].fecha_nacimiento);
+                            $('#txtSexo').val(data[0].sexo);
 
                         }
                     },

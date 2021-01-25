@@ -28,6 +28,7 @@ class RoleController extends Controller
                 })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
+
                     $user = Auth()->user();
                     $btn = '';
                     if ($user->can('roles.show')) {
@@ -37,7 +38,11 @@ class RoleController extends Controller
                         $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editRole">Editar</a>';
                     }
                     if ($user->can('roles.destroy')) {
-                        $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteRole">Eliminar</a>';
+                        if ($row->name != 'Administrador') {
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteRole">Eliminar</a>';
+                        }
+
+
                     }
                     return $btn;
                 })

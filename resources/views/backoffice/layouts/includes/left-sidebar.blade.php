@@ -38,12 +38,14 @@
                 {{--                        </a>--}}
                 {{--                    </li>--}}
 
-                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Inicio</p>
-                    </a>
-                </li>
+                @can('inicio.index')
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Inicio</p>
+                        </a>
+                    </li>
+                @endcan
                 @can('crearConsultas.index')
                     <li class="nav-item">
                         <a href="{{ route('crearConsultas.index') }}" class="nav-link">
@@ -66,6 +68,14 @@
                         <a href="{{ route('users.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-id-card"></i>
                             <p>Usuarios</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('historiaClinica.index')
+                    <li class="nav-item">
+                        <a href="{{ route('historiaClinica.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-file-signature"></i>
+                            <p>Historias Clínicas</p>
                         </a>
                     </li>
                 @endcan

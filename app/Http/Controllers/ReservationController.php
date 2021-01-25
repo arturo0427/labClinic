@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class ReservationController extends Controller
 {
@@ -16,9 +17,29 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
 
+            $reservations = Reservation::latest()->get();
+
+            return Datatables::of($reservations)
+                ->addIndexColumn()
+                ->addColumn('status', function (Reservation $reservation) {
+                    $badge = '';
+                    if ($reservation->status == 0) {
+                        $badge = '<span class="badge bg-danger">En espera</span>';
+                        return $badge;
+                    } else if ($reservation->status == 1) {
+                        $badge = '<span class="badge bg-success">Atendido</span>';
+                        return $badge;
+                    }
+                })
+                ->rawColumns(['status'])
+                ->make(true);
+
+
+        }
 
         return view('backoffice.pages.reservation.index');
     }
@@ -134,13 +155,18 @@ class ReservationController extends Controller
     public function atenderCita($id)
     {
         $reservation = Reservation::find($id);
-        $reservation->status = 'Atendido';
+        $reservation->status = 1;
         $reservation->save();
 
         return response()->json([
             'type' => 'success',
             'message' => 'Cita médica atendida']);
 
+    }
+
+    public function reservationTable(Request $request)
+    {
+        dd($request);
     }
 
     /**
@@ -152,9 +178,10 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         $userId = Auth()->user()->id;
+        $user = Auth()->user();
         $reservacion = Reservation::find($id)->user_id;
 
-        if ($userId == $reservacion) {
+        if ($userId == $reservacion || $user->hasRole('Administrador')) {
             Reservation::find($id)->delete();
 
             return response()->json([
@@ -165,7 +192,6 @@ class ReservationController extends Controller
                 'type' => 'error',
                 'message' => 'Solo el usuario que realizó la reservación puede eliminar']);
         }
-
 
     }
 }

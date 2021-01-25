@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Test correo</title>
+    <title>Enviar al correo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,12 +12,8 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
-            <h3> {{ $details['title'] }} </h3>
-            <p>{{$details['body']}}</p>
-            <br/>
-            <br/>
-            <p> Best Regards</p>
-            <p> Team, Programming Fields </p>
+            <h3>{{$title}}</h3>
+            <p>{{$body}}</p>
         </div>
     </div>
 </div>

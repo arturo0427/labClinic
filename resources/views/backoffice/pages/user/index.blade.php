@@ -93,8 +93,8 @@
                                 <label for="apellido">Sexo</label>
                                 <select id="sexo" name="sexo" class="form-control sexo_edit">
                                     <option selected disabled>Seleccionar...</option>
-                                    <option value="Hombre">Hombre</option>
-                                    <option value="Mujer">Mujer</option>
+                                    <option value="Hombre">Masculino</option>
+                                    <option value="Mujer">Femenino</option>
                                     <option value="Otro/a">Otro/a</option>
                                 </select>
                             </div>

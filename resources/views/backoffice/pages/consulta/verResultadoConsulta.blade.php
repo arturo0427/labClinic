@@ -41,6 +41,13 @@
                         <p>{{$consulta->precio}} $</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <a target="_blank" type="submit" href="{{route('print', $consulta->id)}}" class="btn btn-primary">Generar
+                            PDF</a>
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>
