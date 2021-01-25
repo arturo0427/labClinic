@@ -18,7 +18,7 @@ class GeneradorPdfController extends Controller
 
         $pdf = \PDF::loadView('backoffice.pdf.resultadosPDF', compact('consulta', 'medico'));
 //        return $pdf->download($consulta->id . '_' . $consulta->user->id . '.pdf');
-        Mail::send();
+
 
         return $pdf->stream($consulta->id . '_' . $consulta->user->id . '.pdf');
     }
