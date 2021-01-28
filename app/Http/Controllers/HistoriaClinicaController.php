@@ -81,8 +81,8 @@ class HistoriaClinicaController extends Controller
      */
     public function show($id)
     {
-        $consulta = Consulta::find($id);
-        $medico = User::find($consulta->medico_id);
+        $consulta = Consulta::findOrFail($id);
+        $medico = User::findOrFail($consulta->medico_id);
 
         return view('backoffice.pages.historiaClinica.show', [
             'consulta' => $consulta,

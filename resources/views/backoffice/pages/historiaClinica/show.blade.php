@@ -32,7 +32,16 @@
                                 @endif
                             @endforeach
                         </div>
+                        <div class="form-group col-md-3">
+                            <label>Rango normal:</label>
+                            @foreach($consulta->resultadoConsultas as $res)
+                                @if($tipo->slug == $res->slug)
+                                    <p>{{$res->rango}}</p>
+                                @endif
+                            @endforeach
+                        </div>
                     @endforeach
+
                 </div>
                 <hr>
                 <div class="row">

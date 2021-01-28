@@ -32,8 +32,18 @@
                                 @foreach($consulta->resultadoConsultas as $res)
                                     @if($tipo->slug == $res->slug)
                                         <input type="text" name="resultado[]" class="form-control"
-                                               value="{{$res->resultado}}" required>
+                                               value="{{Crypt::decryptString($res->resultado)}}" required>
+
                                         <input type="hidden" name="slug[]" value="{{$tipo->slug}}">
+                                    @endif
+                                @endforeach
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Rango normal</label>
+                                @foreach($consulta->resultadoConsultas as $res)
+                                    @if($tipo->slug == $res->slug)
+                                        <input type="text" name="rango[]" class="form-control"
+                                               value="{{$res->rango}}" required>
                                     @endif
                                 @endforeach
                             </div>

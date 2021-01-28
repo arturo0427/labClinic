@@ -89,6 +89,7 @@ class UserController extends Controller
                 'apellido' => 'required',
                 'sexo' => 'required',
                 'age' => 'required|numeric',
+                'nacionalidad' => 'required',
                 'cedula' => 'required|unique:users,cedula|numeric',
                 'fecha_nacimiento' => 'required|date',
                 'email' => 'required|email|unique:users,email',
@@ -105,9 +106,10 @@ class UserController extends Controller
                 'sexo.required' => 'El campo sexo es requerido',
                 'age.required' => 'El campo edad es requerido',
                 'age.numeric' => 'El campo edad debe ser numérico',
+                'nacionalidad.numeric' => 'La nacionalidad es requerido',
                 'cedula.required' => 'El campo cédula es requerido',
-                'cedula.unique' => 'La cédula ya existe',
-                'cedula.numeric' => 'El campo cedula debe ser numérico',
+                'cedula.unique' => 'La cédula ya se encuentra registrada',
+                'cedula.numeric' => 'El campo cédula debe ser numérico',
                 'fecha_nacimiento.required' => 'El campo fecha de nacimiento es requerido',
                 'email.required' => 'El campo email es requerido',
                 'email.unique' => 'El email ya existe',
@@ -132,6 +134,7 @@ class UserController extends Controller
                     'apellido' => $request->input('apellido'),
                     'sexo' => $request->input('sexo'),
                     'age' => $request->input('age'),
+                    'nacionalidad' => $request->input('nacionalidad'),
                     'cedula' => $request->input('cedula'),
                     'celular' => $request->input('celular'),
                     'telefono' => $request->input('telefono'),
@@ -157,7 +160,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+
+
+        $user = User::findOrFail($id);
+
         $roles = $user->getRoleNames();
 
 
@@ -199,6 +205,7 @@ class UserController extends Controller
                 'apellido' => 'required',
                 'sexo' => 'required',
                 'age' => 'max:3',
+                'nacionalidad' => 'required',
                 'cedula' => 'required|numeric|unique:users,cedula,' . $request->input('User_id'),
                 'fecha_nacimiento' => 'required|date',
                 'email' => 'required|email|unique:users,email,' . $request->input('User_id'),
@@ -222,10 +229,11 @@ class UserController extends Controller
                 $user->apellido = $request['apellido'];
                 $user->sexo = $request['sexo'];
                 $user->age = $request['age'];
+                $user->nacionalidad = $request['nacionalidad'];
                 $user->cedula = $request['cedula'];
                 $user->fecha_nacimiento = $request['fecha_nacimiento'];
                 $user->email = $request['email'];
-//                $user->password = $request['password'];
+                $user->password = bcrypt($request['password']);
                 $user->celular = $request['celular'];
                 $user->telefono = $request['telefono'];
                 $user->fecha_nacimiento = $request['fecha_nacimiento'];

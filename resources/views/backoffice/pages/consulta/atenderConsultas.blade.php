@@ -41,6 +41,10 @@
                                 <input name="resultado[]" type="text" class="form-control" required>
                                 <input type="hidden" name="slug[]" value="{{$tipo->slug}}">
                             </div>
+                            <div class="form-group col-md-3">
+                                <label>Rango normal</label>
+                                <input type="text" name="rango[]" class="form-control" required>
+                            </div>
                         @endforeach
                     </div>
                     <hr>

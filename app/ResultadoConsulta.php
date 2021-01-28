@@ -11,6 +11,7 @@ class ResultadoConsulta extends Model
     protected $fillable = [
         'resultado',
         'slug',
+        'rango',
         'consulta_id',
     ];
 

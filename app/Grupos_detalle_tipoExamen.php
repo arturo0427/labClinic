@@ -3,13 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Grupos_detalle_tipoExamen extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'grupos_detalle_tipo_examen';
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'grupos_id',
     ];

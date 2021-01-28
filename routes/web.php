@@ -113,38 +113,57 @@ Route::middleware(['auth'])->group(function () {
     Route::post('inventario/{id}/update', 'inventarioController@update')->name('inventario.update')
         ->middleware('permission:inventario.edit');
 
-//   Rutas historias clinicas
+    //   Rutas historias clinicas
     Route::get('historiaClinica', 'HistoriaClinicaController@index')->name('historiaClinica.index')
         ->middleware('permission:historiaClinica.index');
     Route::get('historiaClinica/{id}/show', 'HistoriaClinicaController@show')->name('historiaClinica.show')
         ->middleware('permission:historiaClinica.show');
 
 
+    //    Rutas de tipos de examenes
+    Route::get('gruposDetalleTipoExamen', 'GruposDetalleTipoExamenController@index')->name('gruposDetalleTipoExamen.index')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::get('gruposDetalleTipoExamen/{id}/edit', 'GruposDetalleTipoExamenController@edit')->name('gruposDetalleTipoExamen.edit')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::post('gruposDetalleTipoExamen/{id}/update', 'GruposDetalleTipoExamenController@update')->name('gruposDetalleTipoExamen.update')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::post('gruposDetalleTipoExamen/store', 'GruposDetalleTipoExamenController@store')->name('gruposDetalleTipoExamen.store')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::get('gruposDetalleTipoExamen/{id}/show', 'GruposDetalleTipoExamenController@show')->name('gruposDetalleTipoExamen.show')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::delete('gruposDetalleTipoExamen/{id}', 'GruposDetalleTipoExamenController@destroy')->name('gruposDetalleTipoExamen.destroy')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+
+    //    Rutas de grupos de examenes
+    Route::get('gruposExamenes', 'GruposExamenController@index')->name('gruposExamenes.index')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::get('gruposExamenes/{id}/edit', 'GruposExamenController@edit')->name('gruposExamenes.edit')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::post('gruposExamenes/{id}/update', 'GruposExamenController@update')->name('gruposExamenes.update')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::post('gruposExamenes/store', 'GruposExamenController@store')->name('gruposExamenes.store')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::delete('gruposExamenes/{id}', 'GruposExamenController@destroy')->name('gruposExamenes.destroy')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
+    Route::get('gruposExamenes/{id}/show', 'GruposExamenController@show')->name('gruposExamenes.show')
+        ->middleware('permission:gruposDetalleTipoExamen.index');
 
 
+    //RUTAS DEL DASHBOARD
+    //grafica
+    Route::get('grafica/insumos', 'graficaController@insumos')->name('grafica.insumos');
+
+    Route::post('totalCostos', 'HomeController@totalCostos')->name('totalCostos');
+
+
+
+    /////
     //pdf
     Route::name('print')->get('/imprimir/{id}', 'GeneradorPdfController@imprimir');
 
-
-
-
-
-
     //email
-    Route::get('email', function () {
-        return view('backoffice.pages.email.index');
-    })->name('historia.index');
-
-//    Route::get("send-email", "EnviarResultadosMailController@sendEmailToUser");
-    Route::get("send-email", function () {
-        $details = [
-            'title' => 'Care verga ',
-            'body' => 'Aajajajajaja mamas'
-        ];
-
-        \Mail::to('boomerrap27@gmail.com')->send(new \App\Mail\EnviarResultadosMail($details));
-        echo "El correo a sido enviado";
-    });
+    Route::get('email/{id}', 'EnviarResultadosMailController@enviar_resultados_email_to_user')
+        ->name('email_resultados.index');
 
 
 });

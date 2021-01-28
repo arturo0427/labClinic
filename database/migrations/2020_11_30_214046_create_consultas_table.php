@@ -19,7 +19,6 @@ class CreateConsultasTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('medico_id');
             $table->double('precio', 8, 2)->nullable();
-//            $table->string('precio')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

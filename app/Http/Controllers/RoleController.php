@@ -38,7 +38,7 @@ class RoleController extends Controller
                         $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editRole">Editar</a>';
                     }
                     if ($user->can('roles.destroy')) {
-                        if ($row->name != 'Administrador') {
+                        if ($row->name != 'Administrador' && $row->name != 'Médico' && $row->name != 'Laboratorista' && $row->name != 'Paciente') {
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteRole">Eliminar</a>';
                         }
 
@@ -78,7 +78,7 @@ class RoleController extends Controller
     {
 
         if ($request->ajax()) {
-            // Setup the validator
+
             $rules = [
                 'name' => 'required|unique:roles',
                 'description' => 'required',
@@ -125,7 +125,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         $permissions = $role->getAllPermissions();
         return response()->json([
             'role' => $role,

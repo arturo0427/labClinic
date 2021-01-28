@@ -17,6 +17,7 @@ class CreateResultadoConsultasTable extends Migration
             $table->id();
             $table->string('resultado');
             $table->string('slug');
+            $table->string('rango');
             $table->foreignId('consulta_id')->constrained('consultas')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

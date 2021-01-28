@@ -28,26 +28,45 @@
                             <label>{{$tipo->name}}:</label>
                             @foreach($consulta->resultadoConsultas as $res)
                                 @if($tipo->slug == $res->slug)
-                                    <p>{{$res->resultado}}</p>
+{{--                                    <p>{{$res->resultado}}</p>--}}
+                                    <p>{{Crypt::decryptString($res->resultado)}}</p>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Rango normal:</label>
+                            @foreach($consulta->resultadoConsultas as $res)
+                                @if($tipo->slug == $res->slug)
+                                    <p>{{$res->rango}}</p>
                                 @endif
                             @endforeach
                         </div>
                     @endforeach
                 </div>
                 <hr>
+                @if(!Auth()->user()->hasRole('Médico'))
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label>Precio:</label>
                         <p>{{$consulta->precio}} $</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <a target="_blank" type="submit" href="{{route('print', $consulta->id)}}" class="btn btn-primary">Generar
-                            PDF</a>
+                @endif
+                @can('PDF_Resultados')
+                    <div class="row">
+                        <div class="form-group col-2">
+                            <a target="_blank" type="submit" href="{{route('print', $consulta->id)}}"
+                               class="btn btn-primary">Generar
+                                PDF</a>
 
+                        </div>
+                        <div class="form-group col-2">
+                            <a type="submit" href="{{route('email_resultados.index', $consulta->id)}}"
+                               class="btn btn-secondary">Enviar PDF por email</a>
+
+                        </div>
                     </div>
-                </div>
+                @endcan
             </div>
         </div>
     </section>

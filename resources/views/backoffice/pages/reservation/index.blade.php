@@ -74,8 +74,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Descripción de tipo de
-                                                diagnóstico</label>
+                                            <label for="exampleFormControlTextarea1">Descripción del diagnóstico clínico</label>
                                             <textarea name="des_diagnostico"
                                                       class="form-control @error('des_diagnostico') is-invalid @enderror"
                                                       rows="5" value="{{ old('des_diagnostico') }}"></textarea>
@@ -243,7 +242,7 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                initialView: 'timeGridWeek',
+                initialView: 'dayGridMonth',
                 slotMinTime: '08:00',
                 slotMaxTime: '19:30',
                 slotDuration: '00:15',

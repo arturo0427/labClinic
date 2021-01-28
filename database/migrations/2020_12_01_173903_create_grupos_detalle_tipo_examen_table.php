@@ -17,9 +17,10 @@ class CreateGruposDetalleTipoExamenTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->integer('consumo')->default(2)->nullable();
+            $table->integer('consumo')->nullable();
             $table->foreignId('grupos_id')->constrained('grupos_examen')
-                ->onUpdate('cascade')->onDelete('cascade');
+                ->onUpdate('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -22,14 +22,6 @@
 @section('content')
 
     <section class="content">
-        {{--        <div class="card">--}}
-        {{--            <div class="card-body">--}}
-        {{--                --}}{{--                <a href="{{route('roles.create')}}" class="btn btn-primary iframe" data-toggle="modal"--}}
-        {{--                --}}{{--                   data-target="#createRoleModal">Crear Rol</a>--}}
-
-        {{--            </div>--}}
-        {{--        </div>--}}
-
         <div class="card card-primary card-outline">
             <div class="card-body">
                 <div class="row">
@@ -86,6 +78,12 @@
                         <div class="form-group">
                             <label>Edad:</label>
                             <p>{{$user->age}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Nacionalidad:</label>
+                            <p>{{$user->nacionalidad}}</p>
                         </div>
                     </div>
                 </div>

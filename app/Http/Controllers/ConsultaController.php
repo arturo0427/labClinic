@@ -87,7 +87,7 @@ class ConsultaController extends Controller
                 'medico_id' => $user->id,
             ]);
             $consulta->grupos_detalles_tiposExamenes()->attach($request->input('grupoTipo'));
-            toast('Consulta creada', 'success')->autoClose(4000);
+//            toast('Consulta creada', 'success')->autoClose(4000);
             return redirect('consultas');
         }
     }

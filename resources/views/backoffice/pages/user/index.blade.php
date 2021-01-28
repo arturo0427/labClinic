@@ -112,6 +112,12 @@
                                        placeholder="Ingresar Edad">
                                 {{--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--}}
                             </div>
+                            <div class="form-group col-md-4">
+                                <label>Nacionalidad</label>
+                                <input type="text" name="nacionalidad" class="form-control" id="nacionalidad"
+                                       placeholder="Ingresar Nacionalidad">
+                                {{--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--}}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
@@ -138,7 +144,7 @@
                         <div class="row">
                             <div class="form-group col-md-8">
                                 <label>Contraseña</label>
-                                <input type="text" name="password" class="form-control" id="password"
+                                <input type="password" name="password" class="form-control" id="password"
                                        placeholder="Ingresar Contraseña">
                                 {{--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--}}
                             </div>
@@ -244,7 +250,6 @@
                 var User_id = $(this).data('id');
 
                 $.get("{{url('users')}}" + '/' + User_id + '/edit', function (data) {
-                    // console.log(data.user.roles);
                     data.user.roles.map(res => {
                         $(".roles_edit").find(`[data-role='${res.id}']`).prop('checked', true);
                     });
@@ -254,6 +259,7 @@
                     $('#name').val(data.user.name);
                     $('#apellido').val(data.user.apellido);
                     $('#sexo').val(data.user.sexo);
+                    $('#nacionalidad').val(data.user.nacionalidad);
                     $('#cedula').val(data.user.cedula);
                     $('#age').val(data.user.age);
                     $('#celular').val(data.user.celular);

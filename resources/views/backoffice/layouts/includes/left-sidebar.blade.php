@@ -104,6 +104,22 @@
                         </a>
                     </li>
                 @endcan
+                @Can('gruposDetalleTipoExamen.index')
+                    <li class="nav-item">
+                        <a href="{{ route('gruposExamenes.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-vials"></i>
+                            <p>Grupo de Exámenes</p>
+                        </a>
+                    </li>
+                @endcan
+                @Can('gruposDetalleTipoExamen.index')
+                    <li class="nav-item">
+                        <a href="{{ route('gruposDetalleTipoExamen.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-vial"></i>
+                            <p>Tipo de Exámenes</p>
+                        </a>
+                    </li>
+                @endcan
 
 
             </ul>

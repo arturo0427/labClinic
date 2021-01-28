@@ -43,10 +43,10 @@ class InventarioController extends Controller
                 ->addColumn('status', function (Insumo $insumo) {
                     $badge = '';
 
-                    if ($insumo->status == 0) {
+                    if ($insumo->usos < 1 || $insumo->status == 0) {
                         $badge = '<span class="badge bg-danger">Agotado</span>';
                         return $badge;
-                    } else if ($insumo->status == 1) {
+                    } else if ($insumo->usos > 0 && $insumo->status == 1) {
                         $badge = '<span class="badge bg-success">Disponible</span>';
                         return $badge;
                     }
@@ -139,7 +139,7 @@ class InventarioController extends Controller
      */
     public function show($id)
     {
-        $insumo = Insumo::find($id);
+        $insumo = Insumo::findOrFail($id);
 
 //        dd($insumo->tipoExamenes->grupos_id);
 

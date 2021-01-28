@@ -65,6 +65,7 @@
             position: static;
             height: 90px;
             width: 40%;
+            opacity: 0.6;
 
         }
 
@@ -107,7 +108,7 @@
                 <strong>Paciente:</strong> {{ $consulta->user->name }} {{ $consulta->user->apellido }} <br>
                 <strong>Cédula:</strong> {{ $consulta->user->cedula }} <br>
                 <strong>Edad:</strong> {{ $consulta->user->age }} <br>
-                <strong>Fecha:</strong> {{ $consulta->created_at }} </p>
+                <strong>Fecha:</strong> {{ date("d/m/Y", strtotime($consulta->created_at)) }} </p>
         </div>
     </div>
     <hr>
@@ -118,6 +119,7 @@
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Resultado</th>
+                <th>Rango normal</th>
             </tr>
             </thead>
             <tbody>
@@ -127,7 +129,8 @@
                     <td>{{$tipo->name}}</td>
                     @foreach($consulta->resultadoConsultas as $res)
                         @if($tipo->slug == $res->slug)
-                            <td align="center">{{$res->resultado}}</td>
+                            <td align="center">{{Crypt::decryptString($res->resultado)}}</td>
+                            <td align="center">{{$res->rango}}</td>
                         @endif
                     @endforeach
                 </tr>

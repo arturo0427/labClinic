@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Consulta;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use App\ResultadoConsulta;
@@ -141,15 +142,18 @@ class GestionConsultasController extends Controller
      */
     public function store(Request $request, $id)
     {
-
         $resultado = $request->input('resultado');
         $slug = $request->input('slug');
+        $rango = $request->input('rango');
+//        dd($rango);
 
 
         for ($i = 0; $i < count($resultado); $i++) {
+
             ResultadoConsulta::create([
-                'resultado' => $resultado[$i],
+                'resultado' => Crypt::encryptString($resultado[$i]),
                 'slug' => $slug[$i],
+                'rango' => $rango[$i],
                 'consulta_id' => $id,
             ]);
         }
@@ -166,26 +170,13 @@ class GestionConsultasController extends Controller
             $insumos = $examen->insumos;
             foreach ($insumos as $insumo_unitario) {
                 $insumo_unitario->usos -= $examen->consumo;
+                if($examen->consumo <= 0){
+                    $insumo_unitario->usos = 0;
+                }
                 $insumo_unitario->save();
             }
         }
 
-        $data["email"] = $consulta->user->email;
-        $data["title"] = "Laboratorio Clínico El Ángel";
-        $data["body"] = "Resultados clínicos";
-        $nombre = $consulta->id . '_' . $consulta->user->id . '.pdf';
-
-        $medico = User::find($consulta->medico_id);
-
-        $pdf = \PDF::loadView('backoffice.pdf.resultadosPDF', compact('consulta', 'medico'));
-        Mail::send('backoffice.pages.email.index', $data, function ($message) use ($data, $pdf) {
-            $message->to($data["email"], $data["email"])
-                ->subject($data["title"])
-                ->attachData($pdf->output(), "resultados.pdf");
-        });
-
-
-        toast('Consulta atendida', 'success')->autoClose(3000);
         return redirect()->route('consultas.index');
     }
 
@@ -199,7 +190,6 @@ class GestionConsultasController extends Controller
     public function show($id)
     {
         $consulta = Consulta::find($id);
-
         $medico = User::find($consulta->medico_id);
 
         return view('backoffice.pages.consulta.atenderConsultas', [
@@ -210,8 +200,8 @@ class GestionConsultasController extends Controller
 
     public function verResultadoConsulta($id)
     {
-        $consulta = Consulta::find($id);
-        $medico = User::find($consulta->medico_id);
+        $consulta = Consulta::findOrFail($id);
+        $medico = User::findOrFail($consulta->medico_id);
 
 
         return view('backoffice.pages.consulta.verResultadoConsulta', [
@@ -250,12 +240,14 @@ class GestionConsultasController extends Controller
     {
         $resultado = $request->input('resultado');
         $slug = $request->input('slug');
+        $rango = $request->input('rango');
+
 
         $res = ResultadoConsulta::where('consulta_id', $id)->get();
 
-
         for ($i = 0; $i < count($resultado); $i++) {
-            $res[$i]->resultado = $resultado[$i];
+            $res[$i]->resultado = Crypt::encryptString($resultado[$i]);
+            $res[$i]->rango = $rango[$i];
             $res[$i]->save();
         }
 
