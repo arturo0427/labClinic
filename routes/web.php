@@ -102,7 +102,7 @@ Route::middleware(['auth'])->group(function () {
 //    Rutas Inventario
     Route::get('inventario', 'InventarioController@index')->name('inventario.index')
         ->middleware('permission:inventario.index');
-    Route::post('inventario/store', 'inventarioController@store')->name('inventario.store')
+    Route::post('inventario/store', 'InventarioController@store')->name('inventario.store')
         ->middleware('permission:inventario.create');
     Route::get('inventario/{id}/show', 'inventarioController@show')->name('inventario.show')
         ->middleware('permission:inventario.show');
