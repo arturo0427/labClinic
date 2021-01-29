@@ -93,8 +93,8 @@
                                 <label for="apellido">Sexo</label>
                                 <select id="sexo" name="sexo" class="form-control sexo_edit">
                                     <option selected disabled>Seleccionar...</option>
-                                    <option value="Hombre">Masculino</option>
-                                    <option value="Mujer">Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
                                     <option value="Otro/a">Otro/a</option>
                                 </select>
                             </div>
@@ -253,6 +253,7 @@
                     data.user.roles.map(res => {
                         $(".roles_edit").find(`[data-role='${res.id}']`).prop('checked', true);
                     });
+                    console.log(data.user.sexo);
                     $('#userModal').modal('show');
                     $('#userModalTitle').html("Editar Usuario");
                     $('#User_id').val(data.user.id);

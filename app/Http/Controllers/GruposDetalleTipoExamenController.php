@@ -21,6 +21,7 @@ class GruposDetalleTipoExamenController extends Controller
         if ($request->ajax()) {
             $data = Grupos_detalle_tipoExamen::all();
 
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
