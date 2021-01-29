@@ -276,7 +276,7 @@
                     url: "{{url('gruposDetalleTipoExamen')}}" + '/' + TipoExamen_id + '/show',
                     type: "GET",
                     success: function (data) {
-                        console.log('hola');
+
                         $('#showTipoExamenModal').modal('show');
                         $('#showTipoExamenModalTitle').html("Grupo " + data.grupos_detalle_tipoExamen.name);
                         $('#showId').html(data.grupos_detalle_tipoExamen.id);

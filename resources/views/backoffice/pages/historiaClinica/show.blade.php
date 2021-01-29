@@ -28,7 +28,7 @@
                             <label>{{$tipo->name}}:</label>
                             @foreach($consulta->resultadoConsultas as $res)
                                 @if($tipo->slug == $res->slug)
-                                    <p>{{$res->resultado}}</p>
+                                    <p>{{Crypt::decryptString($res->resultado)}}</p>
                                 @endif
                             @endforeach
                         </div>

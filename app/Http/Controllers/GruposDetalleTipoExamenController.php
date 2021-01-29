@@ -88,6 +88,7 @@ class GruposDetalleTipoExamenController extends Controller
                 $slug = Str::slug($request->input('name'), '_');
 
 
+
                 $grupoExamen = Grupos_detalle_tipoExamen::create([
                     'name' => $request->input('name'),
                     'consumo' => $request->input('consumo'),
