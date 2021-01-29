@@ -104,13 +104,13 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:inventario.index');
     Route::post('inventario/store', 'InventarioController@store')->name('inventario.store')
         ->middleware('permission:inventario.create');
-    Route::get('inventario/{id}/show', 'inventarioController@show')->name('inventario.show')
+    Route::get('inventario/{id}/show', 'InventarioController@show')->name('inventario.show')
         ->middleware('permission:inventario.show');
-    Route::delete('inventario/{id}', 'inventarioController@destroy')->name('inventario.destroy')
+    Route::delete('inventario/{id}', 'InventarioController@destroy')->name('inventario.destroy')
         ->middleware('permission:inventario.destroy');
-    Route::get('inventario/{id}/edit', 'inventarioController@edit')->name('inventario.edit')
+    Route::get('inventario/{id}/edit', 'InventarioController@edit')->name('inventario.edit')
         ->middleware('permission:inventario.edit');
-    Route::post('inventario/{id}/update', 'inventarioController@update')->name('inventario.update')
+    Route::post('inventario/{id}/update', 'InventarioController@update')->name('inventario.update')
         ->middleware('permission:inventario.edit');
 
     //   Rutas historias clinicas
