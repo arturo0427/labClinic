@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
 
-    protected $fillable  = [
+    protected $fillable = [
         'title',
         'start',
         'end',
         'hora_inicio',
         'hora_fin',
-        'des_diagnostico',
+        'consulta_id',
         'status',
         'user_id',
     ];
@@ -23,5 +23,10 @@ class Reservation extends Model
     {
 //        Esta reservacion perteneca a un usuario
         $this->belongsTo('App\User');
+    }
+
+    public function consulta()
+    {
+        $this->hasOne(Consulta::class);
     }
 }

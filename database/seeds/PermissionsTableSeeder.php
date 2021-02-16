@@ -204,6 +204,7 @@ class PermissionsTableSeeder extends Seeder
             'email' => 'boomer_rap@hotmail.com',
             'password' => bcrypt('12345678'),
             'direccion' => 'Ibarra',
+            'email_verified_at' => '2021-02-09 14:36:19',
         ]);
 
         User::create([
@@ -217,6 +218,7 @@ class PermissionsTableSeeder extends Seeder
             'email' => 'm@m.com',
             'password' => bcrypt('12345678'),
             'direccion' => 'El Angel',
+            'email_verified_at' => '2021-02-09 14:36:19',
         ]);
 
         User::create([
@@ -230,6 +232,7 @@ class PermissionsTableSeeder extends Seeder
             'email' => 'l@l.com',
             'password' => bcrypt('12345678'),
             'direccion' => 'El Angel',
+            'email_verified_at' => '2021-02-09 14:36:19',
         ]);
 
         $user = User::find(9);

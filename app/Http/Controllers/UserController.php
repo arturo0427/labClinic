@@ -83,6 +83,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+//        dd($this->validate($request, ['cedula' => 'ecuador:ci',]));
+
         if ($request->ajax()) {
             $rules = [
                 'name' => 'required',
@@ -90,7 +93,7 @@ class UserController extends Controller
                 'sexo' => 'required',
                 'age' => 'required|numeric',
                 'nacionalidad' => 'required',
-                'cedula' => 'required|unique:users,cedula|numeric',
+                'cedula' => 'required|unique:users,cedula|numeric|ecuador:ci',
                 'fecha_nacimiento' => 'required|date',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required',
@@ -110,6 +113,7 @@ class UserController extends Controller
                 'cedula.required' => 'El campo cédula es requerido',
                 'cedula.unique' => 'La cédula ya se encuentra registrada',
                 'cedula.numeric' => 'El campo cédula debe ser numérico',
+                'cedula.ecuador:ci' => 'Cédula incorrecta',
                 'fecha_nacimiento.required' => 'El campo fecha de nacimiento es requerido',
                 'email.required' => 'El campo email es requerido',
                 'email.unique' => 'El email ya existe',
@@ -123,6 +127,8 @@ class UserController extends Controller
 
             $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
+//                dd($validator->getMessageBag()->toArray());
+
                 return response()->json([
                     'type' => 'error',
                     'errors' => $validator->getMessageBag()->toArray()

@@ -20,9 +20,10 @@ class CreateReservationsTable extends Migration
             $table->dateTime('end');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->string('des_diagnostico');
             $table->boolean('status')->default(0);
             $table->foreignId('user_id')->constrained('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('consulta_id')->constrained('consultas')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

@@ -1,6 +1,6 @@
 @extends('backoffice.layouts.admin')
 
-@section('title','Historias Clínicas')
+@section('title','Historial de consultas')
 
 @section('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
 @endsection
 
-@section('name-page','Historias Clínicas')
+@section('name-page','Historial de consultas')
 
 @section('breadcrums')
     {{-- <li class="breadcrumb-item"><a href="#"> </a></li> --}}
-    <li class="breadcrumb-item"><a>Historias Clínicas</a></li>
+    <li class="breadcrumb-item"><a>Historial de consultas</a></li>
 @endsection
 
 

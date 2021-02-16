@@ -165,6 +165,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Tavo\EcLaravelValidator\EcValidatorServiceProvider::class,
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consulta;
 use App\Reservation;
 use App\User;
 use Carbon\Carbon;
@@ -12,6 +13,12 @@ use Yajra\DataTables\DataTables;
 
 class ReservationController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('verified');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +26,8 @@ class ReservationController extends Controller
      */
     public function index(Request $request)
     {
+
+
         if ($request->ajax()) {
 
             $reservations = Reservation::latest()->get();
@@ -40,8 +49,14 @@ class ReservationController extends Controller
 
 
         }
+        $user = Auth()->user();
 
-        return view('backoffice.pages.reservation.index');
+        $consultas = Consulta::where('status', '=', 0)->where('user_id', '=', $user->id)->get();
+
+
+        return view('backoffice.pages.reservation.index', [
+            'consultas' => $consultas,
+        ]);
     }
 
     public function datosCalendario()
@@ -70,20 +85,20 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-
         $rules = [
             'fecha_cita' => 'required',
             'hora_cita' => 'required',
-            'des_diagnostico' => 'required',
+            'consulta' => 'required',
         ];
 
         $messages = [
             'fecha_cita.required' => 'La fecha de cita es necesaria.',
             'hora_cita.required' => 'La hora de cita es necesaria.',
-            'des_diagnostico.required' => 'La descripción del diagnóstio es necesaria.',
+            'consulta.required' => 'La fecha de consulta es necesaria.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
+
 
         if ($validator->fails()) {
             return redirect('reservations')
@@ -103,15 +118,19 @@ class ReservationController extends Controller
                 'end' => $request->input('fecha_cita') . " " . $hora_fin,
                 'hora_inicio' => $hora_inicio,
                 'hora_fin' => $hora_fin,
-                'des_diagnostico' => $request->input('des_diagnostico'),
+                'consulta_id' => $request->input('consulta'),
                 'status' => 0,
                 'user_id' => $user_id,
             ]);
 
+            $user = Auth()->user();
+
+            $consultas = Consulta::where('status', '=', 0)->where('user_id', '=', $user->id)->get();
 
             toast('Reservación asignada', 'success')->autoClose(4000);
             return view('backoffice.pages.reservation.index', [
                 'reservation' => $reservation,
+                'consultas' => $consultas,
             ]);
 
         }
@@ -164,10 +183,6 @@ class ReservationController extends Controller
 
     }
 
-    public function reservationTable(Request $request)
-    {
-        dd($request);
-    }
 
     /**
      * Remove the specified resource from storage.

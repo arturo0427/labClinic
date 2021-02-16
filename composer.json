@@ -19,6 +19,7 @@
         "laravel/ui": "2.4",
         "realrashid/sweet-alert": "^3.1",
         "spatie/laravel-permission": "^3.17",
+        "tavo1987/laravel-ec-validator": "^2.0",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "^9.11"
     },

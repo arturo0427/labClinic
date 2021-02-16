@@ -114,8 +114,12 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Nacionalidad</label>
-                                <input type="text" name="nacionalidad" class="form-control" id="nacionalidad"
-                                       placeholder="Ingresar Nacionalidad">
+                                <select id="nacionalidad" name="nacionalidad" class="form-control nacionalidad_edit">
+                                    <option selected disabled>Seleccionar...</option>
+                                    <option value="Ecuatoriano/a">Ecuatoriano/a</option>
+                                </select>
+{{--                                <input type="text" name="nacionalidad" class="form-control" id="nacionalidad"--}}
+{{--                                       placeholder="Ingresar Nacionalidad">--}}
                                 {{--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--}}
                             </div>
                         </div>

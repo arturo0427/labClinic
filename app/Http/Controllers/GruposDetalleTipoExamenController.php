@@ -89,7 +89,7 @@ class GruposDetalleTipoExamenController extends Controller
 
 
 
-                $grupoExamen = Grupos_detalle_tipoExamen::create([
+                Grupos_detalle_tipoExamen::create([
                     'name' => $request->input('name'),
                     'consumo' => $request->input('consumo'),
                     'slug' => $slug,

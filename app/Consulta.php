@@ -30,4 +30,9 @@ class Consulta extends Model
         return $this->hasMany(ResultadoConsulta::class);
     }
 
+    public function reservation()
+    {
+        $this->belongsTo(Reservation::class);
+    }
+
 }

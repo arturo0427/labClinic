@@ -120,7 +120,7 @@
         <div class="card card-secondary card-outline">
             <div class="card-header">
                 <div class="card-title">
-                    <label>Historias clínicas</label>
+                    <label>Historial de análisis clínicos</label>
                 </div>
             </div>
             <div class="card-body">

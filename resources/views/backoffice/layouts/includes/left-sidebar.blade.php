@@ -75,7 +75,7 @@
                     <li class="nav-item">
                         <a href="{{ route('historiaClinica.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-file-signature"></i>
-                            <p>Historias Clínicas</p>
+                            <p>Historial de consultas</p>
                         </a>
                     </li>
                 @endcan
@@ -83,7 +83,7 @@
                     <li class="nav-item">
                         <a href="{{ route('reservations.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-calendar-check"></i>
-                            <p>Reservaciones</p>
+                            <p>Reservación de análisis</p>
                         </a>
                     </li>
                 @endcan
@@ -91,7 +91,7 @@
                     <li class="nav-item">
                         <a href="{{ route('inventario.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-dolly-flatbed"></i>
-                            <p>Inventario</p>
+                            <p>Inventario de existencias</p>
                         </a>
                     </li>
                 @endcan

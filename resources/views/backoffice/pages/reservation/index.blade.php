@@ -1,6 +1,6 @@
 @extends('backoffice.layouts.admin')
 
-@section('title','Reservaciones')
+@section('title','Reservación de análisis')
 
 @section('head')
 
@@ -16,11 +16,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
-@section('name-page','Reservaciones médicas')
+@section('name-page','Reservación de análisis')
 
 @section('breadcrums')
     {{-- <li class="breadcrumb-item"><a href="#"> </a></li> --}}
-    <li class="breadcrumb-item"><a>Reservaciones médicas</a></li>
+    <li class="breadcrumb-item"><a>Reservación de análisis</a></li>
 @endsection
 
 
@@ -33,7 +33,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Cita Médica</h3>
+                            <h3 class="card-title">Reservación</h3>
                         </div>
                         <form method="POST" action="{{ route('reservations.store') }}">
                             {{ csrf_field() }}
@@ -74,11 +74,15 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Descripción del diagnóstico clínico</label>
-                                            <textarea name="des_diagnostico"
-                                                      class="form-control @error('des_diagnostico') is-invalid @enderror"
-                                                      rows="5" value="{{ old('des_diagnostico') }}"></textarea>
-                                            @error('des_diagnostico')
+                                            <label for="exampleFormControlTextarea1">Fecha de consulta</label>
+                                            <select id="consulta" name="consulta"
+                                                    class="form-control @error('consulta') is-invalid @enderror">
+                                                <option value="" selected disabled>Seleccionar consulta...</option>
+                                                @foreach($consultas as $consulta)
+                                                    <option value="{{$consulta->id}}">{{$consulta->id}}.- {{date('d/m/Y', strtotime($consulta->created_at))}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('consulta')
                                             <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                             </span>
@@ -166,8 +170,8 @@
                         <input class="form-control" id="txtStatus" disabled>
                     </div>
                     <div class="form-group">
-                        <label class="">Descripción: </label>
-                        <textarea class="form-control" rows="3" id="txtaDescripcion" disabled></textarea>
+                        <label class="">N° de consulta: </label>
+                        <input class="form-control"  id="txtNDeConsulta" disabled>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -250,7 +254,7 @@
                 selectable: false,
                 selectMirror: true,
                 eventClick: function (arg) {
-                    console.log(arg);
+
                     dia = (arg.event.start.getDate());
                     mes = (arg.event.start.getMonth() + 1);
                     anio = (arg.event.start.getFullYear());
@@ -272,13 +276,12 @@
                         estado = 'Atendido';
                     }
 
-
                     $('#txtId').val(arg.event.id);
                     $('#txtTitle').val(arg.event.title);
                     $('#txtStart').val(dia + "-" + mes + "-" + anio);
                     $('#txtTime').val(hora + ":" + minutos);
                     $('#txtStatus').val(estado);
-                    $('#txtaDescripcion').val(arg.event.extendedProps.des_diagnostico);
+                    $('#txtNDeConsulta').val(arg.event.extendedProps.consulta_id);
                     $('#modalReservation').modal('show');
                 },
                 events: "{{ url('/reservations/datosCalendario') }}",
@@ -286,9 +289,6 @@
                 dayMaxEvents: true, // allow "more" link when too many events
             });
             calendar.render();
-
-
-
 
 
             function enviarInformacion(accion, type) {
@@ -339,8 +339,6 @@
                 idEvento = $('#txtId').val();
                 enviarInformacion('/' + idEvento + '/atenderCita', "GET");
             });
-
-
 
 
         });

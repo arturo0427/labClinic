@@ -16,7 +16,7 @@ class Grupos_detalle_tipoExamen extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description',
+        'consumo',
         'grupos_id',
     ];
 

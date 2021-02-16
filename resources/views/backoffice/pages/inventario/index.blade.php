@@ -1,6 +1,6 @@
 @extends('backoffice.layouts.admin')
 
-@section('title','Inventario')
+@section('title','Inventario de existencias')
 
 @section('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
@@ -10,11 +10,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
-@section('name-page','Inventario')
+@section('name-page','Inventario de existencias')
 
 @section('breadcrums')
     {{-- <li class="breadcrumb-item"><a href="#"> </a></li> --}}
-    <li class="breadcrumb-item"><a>Inventario </a></li>
+    <li class="breadcrumb-item"><a>Inventario de existencias </a></li>
 @endsection
 
 
@@ -24,7 +24,7 @@
         @can('inventario.create')
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-primary" href="javascript:void(0)" id="createNewInsumo">Registrar insumo
+                    <a class="btn btn-primary" href="javascript:void(0)" id="createNewInsumo">Registrar nuevo insumo
                         médico</a>
                 </div>
             </div>
